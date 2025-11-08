@@ -88,7 +88,7 @@ pub struct NewGame<'info> {
          close = creator, 
          seeds =[b"game", creator.key().as_ref()], bump = game_state.bump,
          constraint = game_state.creator == creator.key() @ GameError::UnAuthorized,
-        constraint = game_state.is_active == false @ GameError::GameNotActive
+        constraint = game_state.is_active == false @ GameError::GameStillActive,
           )]
     pub game_state: Account<'info, GameState>,
     #[account(mut)]
@@ -117,6 +117,6 @@ pub enum GameError {
     GameNotActive,
     #[msg("The game is still active")]
     GameStillActive,
-
+    #[msg("Only the creator can close this game")]
     UnAuthorized,
 }
