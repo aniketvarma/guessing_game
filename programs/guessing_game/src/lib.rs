@@ -53,21 +53,10 @@ pub mod guessing_game {
 
 }
 
-#[error_code]
-pub enum GameError {
-    #[msg("Secret number must be between 1 and 100")]
-    InvalidNumber,
-    #[msg("The creator of the game cannot make guesses")]
-    CannotGuessOwnGame,
-    #[msg("The game is not active")]
-    GameNotActive,
-    #[msg("The game is still active")]
-    GameStillActive,
-}
+
 
 #[derive(Accounts)]
 pub struct NewGame<'info> {
-
 
    #[account(init, payer = creator, space =  8 + 1 + 1 + 32 + 1 + 33 + 1, seeds = [b"game", creator.key().as_ref()] , bump)]
    pub game_state: Account<'info, GameState>,
@@ -83,8 +72,6 @@ pub struct NewGame<'info> {
 
 
 #[derive(Accounts)]
- 
-
  pub struct MakeGuess<'info> {
 
     #[account(mut, seeds =[b"game", game_state.creator.as_ref()], bump = game_state.bump)]
@@ -101,10 +88,10 @@ pub struct NewGame<'info> {
          close = creator, 
          seeds =[b"game", creator.key().as_ref()], bump = game_state.bump,
          constraint = game_state.creator == creator.key() @ GameError::CannotGuessOwnGame,
-        constraint = game_state.is_active == false @ GameError::GameStillActive,
+        constraint = game_state.is_active == false @ GameError::UnAuthorized
           )]
     pub game_state: Account<'info, GameState>,
-
+    #[account(mut)]
     pub creator: Signer<'info>,
  }
 
@@ -118,4 +105,18 @@ pub struct GameState {
     pub winner: Option<Pubkey>,
     pub bump: u8,
     
+}
+
+#[error_code]
+pub enum GameError {
+    #[msg("Secret number must be between 1 and 100")]
+    InvalidNumber,
+    #[msg("The creator of the game cannot make guesses")]
+    CannotGuessOwnGame,
+    #[msg("The game is not active")]
+    GameNotActive,
+    #[msg("The game is still active")]
+    GameStillActive,
+
+    UnAuthorized,
 }
