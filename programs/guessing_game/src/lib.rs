@@ -87,8 +87,8 @@ pub struct NewGame<'info> {
         mut,
          close = creator, 
          seeds =[b"game", creator.key().as_ref()], bump = game_state.bump,
-         constraint = game_state.creator == creator.key() @ GameError::CannotGuessOwnGame,
-        constraint = game_state.is_active == false @ GameError::UnAuthorized
+         constraint = game_state.creator == creator.key() @ GameError::UnAuthorized,
+        constraint = game_state.is_active == false @ GameError::GameNotActive
           )]
     pub game_state: Account<'info, GameState>,
     #[account(mut)]
