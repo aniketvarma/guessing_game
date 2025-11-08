@@ -47,7 +47,7 @@ pub mod guessing_game {
 
 
    pub fn close_game(ctx: Context<CloseGame>)-> Result<()>{
-    msg!("Game has been closed.");
+    msg!("Game has been closed. {} retrieves the funds.", ctx.accounts.creator.key());
     Ok(())
    }
 
