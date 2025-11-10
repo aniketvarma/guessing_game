@@ -21,28 +21,32 @@ pub mod guessing_game {
         Ok(())
     }
 
-   pub fn make_guess(ctx: Context<MakeGuess>, guess:u8) -> Result<()> {
+   pub fn make_guess(ctx: Context<MakeGuess>, guess: u8) -> Result<()> {
+    let game = &mut ctx.accounts.game_state;
+    let guesser_key = ctx.accounts.guesser.key();
 
-    require!(ctx.accounts.game_state.is_active, GameError::GameNotActive);
+    require!(game.is_active, GameError::GameNotActive);
     require!(guess > 0 && guess <= 100, GameError::InvalidNumber);
-    require!(ctx.accounts.game_state.creator != ctx.accounts.guesser.key(), GameError::CannotGuessOwnGame);
+    require!(game.creator != guesser_key, GameError::CannotGuessOwnGame);
 
-    ctx.accounts.game_state.attempts +=1;
+    game.attempts += 1;
 
-    if guess == ctx.accounts.game_state.secret_number{
-         ctx.accounts.game_state.is_active = false;
-         ctx.accounts.game_state.winner = Some(ctx.accounts.guesser.key());
-         msg!("{} guessed the correct number {} in {} attempts!", ctx.accounts.guesser.key(), guess, ctx.accounts.game_state.attempts);
-
-    } else if guess < ctx.accounts.game_state.secret_number{
-        msg!("Your guess of {} is too low!", guess);
-    } else {
-        msg!("Your guess of {} is too high!", guess);
-        
+    use std::cmp::Ordering;
+    match guess.cmp(&game.secret_number) {
+        Ordering::Equal => {
+            game.is_active = false;
+            game.winner = Some(guesser_key);
+            msg!("{} guessed the correct number {} in {} attempts!", guesser_key, guess, game.attempts);
+        }
+        Ordering::Less => {
+            msg!("Your guess of {} is too low!", guess);
+        }
+        Ordering::Greater => {
+            msg!("Your guess of {} is too high!", guess);
+        }
     }
-    
 
-       Ok(())
+    Ok(())
    }
 
 
