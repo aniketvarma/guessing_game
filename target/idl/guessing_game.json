@@ -1,0 +1,135 @@
+{
+  "version": "0.1.0",
+  "name": "guessing_game",
+  "instructions": [
+    {
+      "name": "newGame",
+      "accounts": [
+        {
+          "name": "gameState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creator",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "secretNumber",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "makeGuess",
+      "accounts": [
+        {
+          "name": "gameState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "guesser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "guess",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "closeGame",
+      "accounts": [
+        {
+          "name": "gameState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creator",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GameState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "secretNumber",
+            "type": "u8"
+          },
+          {
+            "name": "attempts",
+            "type": "u8"
+          },
+          {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "name": "winner",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidNumber",
+      "msg": "Secret number must be between 1 and 100"
+    },
+    {
+      "code": 6001,
+      "name": "CannotGuessOwnGame",
+      "msg": "The creator of the game cannot make guesses"
+    },
+    {
+      "code": 6002,
+      "name": "GameNotActive",
+      "msg": "The game is not active"
+    },
+    {
+      "code": 6003,
+      "name": "GameStillActive",
+      "msg": "The game is still active"
+    },
+    {
+      "code": 6004,
+      "name": "UnAuthorized",
+      "msg": "Only the creator can close this game"
+    }
+  ],
+  "metadata": {
+    "address": "CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud"
+  }
+}
