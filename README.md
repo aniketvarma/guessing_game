@@ -2,6 +2,21 @@
 
 A decentralized guessing game built on Solana using the Anchor framework. Players try to guess a secret number set by the game creator, with all game state stored on-chain.
 
+![Guessing Game Front-End](https://github.com/user-attachments/assets/525d6487-c8f1-41e1-85f9-832f29a6d580)
+
+## 🎨 Front-End dApp
+
+This project now includes a **modern web interface** built with Next.js and React! 
+
+👉 **[See Front-End Documentation](./FRONTEND_README.md)** for setup and usage instructions.
+
+### Quick Start (Front-End)
+```bash
+npm install
+npm run dev
+# Open http://localhost:3000
+```
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
