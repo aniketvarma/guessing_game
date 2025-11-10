@@ -76,7 +76,7 @@ export const MakeGuess: FC<MakeGuessProps> = ({ onMakeGuess, loading, gameActive
             type="text"
             className="input"
             value={creatorAddress}
-            onChange={(e) => setCreatorAddress(e.target.value)}
+            onChange={(e) => setCreatorAddress((e.target as HTMLInputElement).value)}
             placeholder="Enter creator's wallet address"
             disabled={loading}
           />
@@ -90,7 +90,7 @@ export const MakeGuess: FC<MakeGuessProps> = ({ onMakeGuess, loading, gameActive
             max="100"
             className="input"
             value={guess}
-            onChange={(e) => setGuess(e.target.value)}
+            onChange={(e) => setGuess((e.target as HTMLInputElement).value)}
             placeholder="Enter your guess"
             disabled={loading}
           />

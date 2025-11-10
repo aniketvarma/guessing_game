@@ -129,7 +129,10 @@
       "msg": "Only the creator can close this game"
     }
   ],
+  "address": "CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud",
   "metadata": {
-    "address": "CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud"
+    "name": "guessing_game",
+    "version": "0.1.0",
+    "spec": "0.1.0"
   }
 }

@@ -50,7 +50,7 @@ export const CreateGame: FC<CreateGameProps> = ({ onCreateGame, loading }) => {
             max="100"
             className="input"
             value={secretNumber}
-            onChange={(e) => setSecretNumber(e.target.value)}
+            onChange={(e) => setSecretNumber((e.target as HTMLInputElement).value)}
             placeholder="Enter a number between 1 and 100"
             disabled={loading}
           />

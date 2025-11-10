@@ -2,7 +2,7 @@
 
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram } from '@solana/web3.js';
-import { Program, AnchorProvider, Idl, web3 } from '@coral-xyz/anchor';
+import { Program, AnchorProvider, web3 } from '@coral-xyz/anchor';
 import { useCallback, useEffect, useState } from 'react';
 import idl from '../../target/idl/guessing_game.json';
 
@@ -43,7 +43,7 @@ export const useGuessingGame = () => {
 
   const getProgram = useCallback(() => {
     const provider = getProvider();
-    return new Program(idl as Idl, provider);
+    return new Program(idl as any, provider);
   }, [getProvider]);
 
   const getGamePDA = useCallback((creator: PublicKey) => {
@@ -67,7 +67,7 @@ export const useGuessingGame = () => {
         return;
       }
 
-      const gameStateData = await program.account.gameState.fetch(gameStatePda);
+      const gameStateData: any = await (program.account as any).gameState.fetch(gameStatePda);
       setGameState({
         secretNumber: gameStateData.secretNumber as number,
         attempts: gameStateData.attempts as number,
