@@ -2,21 +2,6 @@
 
 A decentralized guessing game built on Solana using the Anchor framework. Players try to guess a secret number set by the game creator, with all game state stored on-chain.
 
-![Guessing Game Front-End](https://github.com/user-attachments/assets/525d6487-c8f1-41e1-85f9-832f29a6d580)
-
-## 🎨 Front-End dApp
-
-This project now includes a **modern web interface** built with Next.js and React! 
-
-👉 **[See Front-End Documentation](./FRONTEND_README.md)** for setup and usage instructions.
-
-### Quick Start (Front-End)
-```bash
-npm install
-npm run dev
-# Open http://localhost:3000
-```
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -27,6 +12,7 @@ npm run dev
 - [Program Instructions](#program-instructions)
 - [Account Structure](#account-structure)
 - [Error Codes](#error-codes)
+- [Deployment](#deployed-program)
 - [Development](#development)
 
 ## 🎯 Overview
@@ -75,7 +61,6 @@ pub struct GameState {
 - [Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) (v1.18+)
 - [Anchor CLI](https://www.anchor-lang.com/docs/installation) (v0.32+)
 - [Node.js](https://nodejs.org/) (v18+)
-- [Yarn](https://yarnpkg.com/)
 
 ### Installation
 
@@ -87,7 +72,7 @@ pub struct GameState {
 
 2. **Install dependencies**
    ```bash
-   yarn install
+   npm install
    ```
 
 3. **Build the program**
@@ -261,6 +246,26 @@ pub enum GameError {
     #[msg("Only the creator can close this game")]
     UnAuthorized,           // 6004
 }
+```
+
+## 🌐 Deployed Program
+
+**Network:** Solana Devnet
+
+**Program ID:** `CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud`
+
+**IDL Account:** `Diac2KyyCSyeiPJJx3toa3DGQ8RMS3RWNpNDwdkyo7Ph`
+
+**Explorer:** [View on Solana Explorer](https://explorer.solana.com/address/CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud?cluster=devnet)
+
+### How to Interact
+
+```bash
+# Connect to the deployed program
+solana config set --url devnet
+
+# View program info
+solana program show CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud
 ```
 
 ## 🛠️ Development
