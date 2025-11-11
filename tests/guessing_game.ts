@@ -87,7 +87,7 @@ describe("guessing_game", () => {
 
     expect(updatedGameState.attempts).to.equal(2);
     expect(updatedGameState.isActive).to.equal(false);
-    expect(updatedGameState.winner.toString()).to.equal(guesser.publicKey.toString());
+    expect(updatedGameState.winner!.toString()).to.equal(guesser.publicKey.toString());
 
   });
 

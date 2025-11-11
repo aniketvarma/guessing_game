@@ -1,4 +1,0 @@
-# Ignore everything in target except idl
-*
-!.gitignore
-!idl/

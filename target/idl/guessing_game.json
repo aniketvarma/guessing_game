@@ -1,45 +1,92 @@
 {
-  "version": "0.1.0",
-  "name": "guessing_game",
+  "address": "CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud",
+  "metadata": {
+    "name": "guessing_game",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
   "instructions": [
     {
-      "name": "newGame",
+      "name": "close_game",
+      "discriminator": [
+        237,
+        236,
+        157,
+        201,
+        253,
+        20,
+        248,
+        67
+      ],
       "accounts": [
         {
-          "name": "gameState",
-          "isMut": true,
-          "isSigner": false
+          "name": "game_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "creator"
+              }
+            ]
+          }
         },
         {
           "name": "creator",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          "writable": true,
+          "signer": true
         }
       ],
-      "args": [
-        {
-          "name": "secretNumber",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
-      "name": "makeGuess",
+      "name": "make_guess",
+      "discriminator": [
+        59,
+        189,
+        219,
+        87,
+        240,
+        211,
+        125,
+        101
+      ],
       "accounts": [
         {
-          "name": "gameState",
-          "isMut": true,
-          "isSigner": false
+          "name": "game_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "game_state.creator",
+                "account": "GameState"
+              }
+            ]
+          }
         },
         {
           "name": "guesser",
-          "isMut": false,
-          "isSigner": true
+          "signer": true
         }
       ],
       "args": [
@@ -50,56 +97,70 @@
       ]
     },
     {
-      "name": "closeGame",
+      "name": "new_game",
+      "discriminator": [
+        211,
+        13,
+        182,
+        128,
+        71,
+        187,
+        248,
+        202
+      ],
       "accounts": [
         {
-          "name": "gameState",
-          "isMut": true,
-          "isSigner": false
+          "name": "game_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "creator"
+              }
+            ]
+          }
         },
         {
           "name": "creator",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "secret_number",
+          "type": "u8"
+        }
+      ]
     }
   ],
   "accounts": [
     {
       "name": "GameState",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "secretNumber",
-            "type": "u8"
-          },
-          {
-            "name": "attempts",
-            "type": "u8"
-          },
-          {
-            "name": "creator",
-            "type": "publicKey"
-          },
-          {
-            "name": "isActive",
-            "type": "bool"
-          },
-          {
-            "name": "winner",
-            "type": {
-              "option": "publicKey"
-            }
-          },
-          {
-            "name": "bump",
-            "type": "u8"
-          }
-        ]
-      }
+      "discriminator": [
+        144,
+        94,
+        208,
+        172,
+        248,
+        99,
+        134,
+        120
+      ]
     }
   ],
   "errors": [
@@ -129,10 +190,40 @@
       "msg": "Only the creator can close this game"
     }
   ],
-  "address": "CgmYL5KARiCGFXP1bpWh8xuX9B2anwoW3Ygj4GTScRud",
-  "metadata": {
-    "name": "guessing_game",
-    "version": "0.1.0",
-    "spec": "0.1.0"
-  }
+  "types": [
+    {
+      "name": "GameState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "secret_number",
+            "type": "u8"
+          },
+          {
+            "name": "attempts",
+            "type": "u8"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          },
+          {
+            "name": "winner",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
 }
